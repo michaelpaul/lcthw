@@ -33,13 +33,13 @@ void die(const char * message) {
 }
 
 void Address_print(struct Address *addr) {
-    printf("%d %s %s \n", addr->id, addr->name, addr->email);
+    printf("%d %s %s\n", addr->id, addr->name, addr->email);
 }
 
 void Database_load(struct Connection *conn) {
     int rc = fread(conn->db, sizeof(struct Database), 1, conn->file);
     if (rc != 1) {
-        die("Failed to load database.");
+        die("Failed to load database");
     }
 }
 
@@ -47,12 +47,12 @@ struct Connection *Database_open(const char *filename, char mode) {
     struct Connection * conn = malloc(sizeof(struct Connection));
     
     if (!conn) {
-        die("Memory error.");
+        die("Connection memory error");
     }
     
     conn->db = malloc(sizeof(struct Database));
     if (!conn->db) {
-        die("Memory error.");
+        die("Database memory error");
     }
 
     if (mode == 'c') {
@@ -117,17 +117,14 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
     
     addr->set = 1;
 
-    // warning: bug, fix this
-    char * res = strncpy(addr->name, name, MAX_DATA);
-
-    // demo bug
-
+    char *res = strncpy(addr->name, name, MAX_DATA);
+    addr->name[MAX_DATA - 1] = '\0';
     if (!res) {
         die("Name copy failed");
     } 
 
     res = strncpy(addr->email, email, MAX_DATA);
-
+    addr->email[MAX_DATA - 1] = '\0';
     if (!res) {
         die("Email copy failed");
     }
@@ -173,7 +170,7 @@ int main(int argc, char *argv[]) {
     int id = 0;
 
     if (argc > 3) id = atoi(argv[3]);
-    if (id >= MAX_ROWS) die("There's not that many records.");
+    if (id >= MAX_ROWS) die("There's not that many records");
 
     switch (action) {
         case 'c':
