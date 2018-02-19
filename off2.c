@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-// strtolowe
+// strtolower
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         printf("Error: vc precisa de um argumento \n");
