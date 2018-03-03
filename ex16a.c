@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// @TODO reescreer esse programa sem ponteiros ou malloc
 struct Person {
     char *name;
     int age;
