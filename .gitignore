@@ -1,13 +1,3 @@
-book.db
-
-# Binaries
-
-ex[0-9]
-ex[0-9][0-9]
-ex[0-9][0-9][a-z]
-off[0-9]
-off[0-9][0-9]
-
 # Prerequisites
 *.d
 
