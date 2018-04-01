@@ -19,6 +19,7 @@ int duffs_device(char *from, char *to, int count)
 {
     {
         int n = (count + 7) / 8;
+        log_info("blocks: %d count: %d mod: %d", n, count, count % 8);
 
         switch (count % 8) {
             case 0:
@@ -116,6 +117,11 @@ int main(int argc, char *argv[])
     rc = zeds_device(from, to, BSIZE);
     check(rc == BSIZE, "Zed's device failed: %d", rc);
     check(valid_copy(to, BSIZE, 'x'), "Zed's device failed copy.");
+
+    // less then a block
+    duffs_device(from, to, 5);
+    // more then a block
+    duffs_device(from, to, 11);
 
     return 0;
 error:
