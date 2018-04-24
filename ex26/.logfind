@@ -1,0 +1,6 @@
+./foo.txt
+/root/*
+./bar.txt
+../ex1-19/*.c
+./*.c
+~/src/lcthw/ex22/*.c
