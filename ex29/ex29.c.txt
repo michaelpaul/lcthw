@@ -1,0 +1,29 @@
+// Como seria o ex29 com exceptions e um tratamento de erros genérico 
+
+#include <stdio.h>
+#include "../dbg.h"
+#include <dlfcn.h>
+
+typedef int (*lib_function) (const char *data);
+
+int main(int argc, char *argv[])
+{
+    try {
+        if (argc == 4) {
+            throw "USAGE: ex29 libex29.so function data";
+        }
+
+        char *lib_file = argv[1];
+        char *func_to_run = argv[2];
+        char *data = argv[3];
+
+        void *lib = dlopen(lib_file, RTLD_NOW);    
+        lib_function func = dlsym(lib, func_to_run);
+        func(data);
+        dlclose(lib);
+        return 0;
+    } catch (const char *error) {
+        printf("Error: %s", error);
+        return 1;
+    }
+}
