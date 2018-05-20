@@ -1,5 +1,5 @@
 CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
-LDLIBS=-ldl $(OPTLIBS)
+LDLIBS=$(OPTLIBS)
 PREFIX?=/usr/local
 
 SOURCES=$(wildcard src/**/*.c src/*.c)
@@ -48,8 +48,7 @@ install: all
 	install $(TARGET) $(DESTDIR)/$(PREFIX)/lib/
 
 # The Checker
+DANGER='[^_.>a-zA-Z0-9](str(n?cpy|n?cat|xfrm|n?dup|str|pbrk|tok|_)|stpn?cpy|a?sn?printf|byte_)'
 check:
 	@echo Files with potentially dangerous functions.
-	@egrep '[^_.>a-zA-Z0-9](str(n?cpy|n?cat|xfrm|n?dup|str|pbrk|tok|_)\
-		|stpn?cpy|a?sn?printf|byte_)' $(SOURCES) || true
-
+	@egrep -H $(DANGER) $(SOURCES) || true
